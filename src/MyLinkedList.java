@@ -2,7 +2,7 @@
 
 public class MyLinkedList<T> implements MyList<T> {
     int size ;
-    Node<T> ll ;
+    Node<T> first;
 
     public static class Node <T> {
         public T item;
@@ -14,9 +14,9 @@ public class MyLinkedList<T> implements MyList<T> {
        Node<T> nextItem = new Node<>();
        nextItem.item = item ;
        switch ( size++) {
-           case 1:  ll = nextItem;  break;
-           case 2:  ll.node = nextItem; break;
-           default: nextItem.node = ll;
+           case 1:  first = nextItem;  break;
+           case 2:  first.node = nextItem; break;
+           default: nextItem.node = first;
                     while (nextItem.node.node != null)
                         nextItem.node = nextItem.node.node;
                     nextItem.node.node = nextItem;
@@ -26,9 +26,14 @@ public class MyLinkedList<T> implements MyList<T> {
 
     @Override
     public T pop() {
+
         Node<T> tmp;
-        tmp = ll.node;
-        ll.node = ll.node.node;
+        tmp = first;
+        if (size == 0) {
+            first = null;
+            return  tmp.item;
+        }
+        first = first.node;
         size--;
         return tmp.item;
     }
@@ -45,15 +50,8 @@ public class MyLinkedList<T> implements MyList<T> {
 
     @Override
     public int size() {
-        return (int)ll.item;
+        return size;
     }
 
-    @Override
-    public String toString() {
-        String  tmp ="";
-        for (int i=1; ll.size ;i++) {
-        tmp = tmp +
-        }
-        return "MyLinkedList{" + "size=" + size + ", ll=" + ll + '}';
-    }
+
 }
